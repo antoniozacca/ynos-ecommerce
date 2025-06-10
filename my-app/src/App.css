@@ -1,0 +1,58 @@
+/* App.css */
+
+/* Sfondo */
+body {
+  background: linear-gradient(135deg, #f0f2f5, #dfe6e9);
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Card prodotto */
+.product-card {
+  transition: transform 0.3s ease;
+  border-radius: 10px;
+}
+
+.product-card:hover {
+  transform: scale(1.03);
+}
+
+.product-card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card-body .btn {
+  font-weight: bold;
+}
+
+/* Pagina Prodotto */
+.product-page {
+  margin-top: 50px;
+}
+
+.product-page-details h1 {
+  font-weight: bold;
+}
+
+.product-page-details p {
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.product-page-details .price {
+  color: #28a745;
+  font-size: 1.5rem;
+  margin-top: 10px;
+}
+
+/* Carrello */
+.cart-page {
+  margin-top: 40px;
+}
+
+.total {
+  text-align: right;
+  font-size: 1.3rem;
+  margin-top: 20px;
+}
