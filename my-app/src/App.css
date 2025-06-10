@@ -7,29 +7,53 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Card prodotto */
+/* Card prodotto (Home.jsx) */
 .product-card {
   transition: transform 0.3s ease;
   border-radius: 10px;
+  height: 100%; /* Assicura che la card occupi l'altezza completa della colonna */
+  display: flex; /* Permette un layout flessibile all'interno della card */
+  flex-direction: column; /* Organizza gli elementi in colonna */
 }
 
 .product-card:hover {
   transform: scale(1.03);
 }
 
+/* Stili per l'immagine all'interno della card prodotto */
+.product-card .card-img-top {
+  width: 100%; /* Occupa tutta la larghezza disponibile */
+  height: 200px; /* Altezza fissa per le immagini delle card */
+  object-fit: contain; /* Ridimensiona l'immagine per adattarsi mantenendo le proporzioni, aggiungendo spazio se necessario */
+  padding: 15px; /* Aggiungi un po' di padding per non farla toccare i bordi */
+  margin-bottom: 10px; /* Spazio sotto l'immagine */
+}
+
 .product-card-body {
   display: flex;
   flex-direction: column;
+  flex-grow: 1; /* Permette al body di espandersi e occupare lo spazio rimanente */
 }
 
 .product-card-body .btn {
   font-weight: bold;
+  margin-top: auto; /* Spinge il pulsante in fondo alla card */
 }
 
-/* Pagina Prodotto */
+/* Pagina Prodotto (ProductPage.jsx) */
 .product-page {
   margin-top: 50px;
 }
+
+/* Stili per l'immagine nella pagina di dettaglio prodotto */
+.product-page .img-fluid {
+  max-width: 100%; /* Assicura che l'immagine non superi la larghezza del suo contenitore */
+  height: 400px; /* Altezza fissa per l'immagine di dettaglio */
+  object-fit: contain; /* Ridimensiona l'immagine per adattarsi mantenendo le proporzioni */
+  display: block; /* Rimuove eventuali spazi extra sotto l'immagine */
+  margin: 0 auto; /* Centra l'immagine orizzontalmente */
+}
+
 
 .product-page-details h1 {
   font-weight: bold;
@@ -46,13 +70,29 @@ body {
   margin-top: 10px;
 }
 
-/* Carrello */
+/* Carrello (CartPage.jsx) */
 .cart-page {
   margin-top: 40px;
+}
+
+/* Stili per le piccole immagini nel carrello */
+.cart-page .table img {
+  width: 60px; /* Aumentato leggermente per migliore visibilità */
+  height: 60px; /* Aumentato leggermente */
+  object-fit: contain; /* Mantiene le proporzioni e centra l'immagine */
+  border: 1px solid #ddd; /* Aggiunge un bordo sottile */
+  border-radius: 4px; /* Angoli leggermente arrotondati */
+  padding: 2px; /* Piccolo padding interno */
 }
 
 .total {
   text-align: right;
   font-size: 1.3rem;
   margin-top: 20px;
+}
+
+/* Stili aggiuntivi per la tabella del carrello per allineamento */
+.cart-page .table th,
+.cart-page .table td {
+  vertical-align: middle; /* Allinea verticalmente il contenuto delle celle */
 }
