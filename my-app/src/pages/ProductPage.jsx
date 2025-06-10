@@ -23,6 +23,9 @@ function ProductPage() {
       <div className="col-md-6 product-page-details">
         <h1>{product.title}</h1>
         <p>{product.description}</p>
+        <p>category: {product.category}</p>
+        <p>rate: {product.rating.rate}</p>
+        <p>count: {product.rating.count}</p>
         <div className="price">{product.price} €</div>
         <button className="btn btn-primary mt-3" onClick={() => addToCart(product)}>
           Aggiungi al Carrello

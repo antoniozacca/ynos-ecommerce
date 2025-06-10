@@ -12,7 +12,7 @@ function Home() {
 
   return (
     <div>
-      <h1 className="text-center mb-4">Prodotti</h1>
+      <h1 className="text-center mb-4">Shop</h1>
       <div className="row">
         {products.map(product => (
           <div key={product.id} className="col-md-4 mb-4">
