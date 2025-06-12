@@ -38,7 +38,7 @@ function Home() {
                 <div className="card h-100 shadow product-card">
                   <img
                     src={product.image}
-                    className="card-img-top p-3"
+                    className="card-img-top p-3 product-image"
                     alt={product.title}
                   />
                   <div className="card-body product-card-body d-flex flex-column">

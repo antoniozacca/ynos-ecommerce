@@ -94,3 +94,13 @@ body {
 .cart-page .table td {
   vertical-align: middle; 
 }
+
+
+
+
+
+.product-image {
+  height: 200px;
+  object-fit: contain;
+  object-position: center;
+}
