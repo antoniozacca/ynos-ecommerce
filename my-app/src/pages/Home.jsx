@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useCart } from '../context/CartContext' // ⬅️ Importa contesto carrello
+import { useCart } from '../context/CartContext'
 
 function Home() {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
-  const { cart, addToCart, removeFromCart } = useCart() // ⬅️ Prendi funzioni dal contesto
+  const { cart, addToCart, removeFromCart } = useCart() 
 
   useEffect(() => {
     fetch('https://fakestoreapi.com/products')
