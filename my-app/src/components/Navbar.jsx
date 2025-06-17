@@ -29,18 +29,19 @@ function Navbar() {
             )}
 
             {user && (
-              <li className="nav-item">
-                <button className="btn btn-link nav-link" onClick={logout}>
-                  Logout
-                </button>
-              </li>
+              <>
+                <li className="nav-item">
+                  <button className="btn btn-link nav-link" onClick={logout}>
+                    Logout
+                  </button>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/cart">
+                    Carrello ({cart.length})
+                  </Link>
+                </li>
+              </>
             )}
-
-            <li className="nav-item">
-              <Link className="nav-link" to="/cart">
-                Carrello ({cart.length})
-              </Link>
-            </li>
           </ul>
         </div>
       </div>
