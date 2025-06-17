@@ -1,11 +1,12 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import routes from './routes/routes';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import routes from "./routes/routes";
+import { AuthProvider } from "./context/AuthContext"; // importa il provider
 
 function App() {
   return (
-    <div>
+    <AuthProvider>
       <Navbar />
       <div className="container mt-4">
         <Routes>
@@ -14,7 +15,7 @@ function App() {
           ))}
         </Routes>
       </div>
-    </div>
+    </AuthProvider>
   );
 }
 
