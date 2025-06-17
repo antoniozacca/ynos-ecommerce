@@ -7,10 +7,10 @@ const Logout = () => {
   useEffect(() => {
     localStorage.removeItem("logged_account");
     alert("Logout effettuato con successo!");
-    navigate("/login"); // oppure alla home se preferisci
+    navigate("/login");
   }, [navigate]);
 
-  return null; // Nessun UI, è solo per eseguire logout
+  return null; //per eseguire logout
 };
 
 export default Logout;

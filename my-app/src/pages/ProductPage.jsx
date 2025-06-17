@@ -6,8 +6,8 @@ import { AuthContext } from "../context/AuthContext";
 function ProductPage() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
-  const { addToCart } = useCart();
   const { user } = useContext(AuthContext);  // <-- prendo utente loggato
+  const { cart, addToCart, removeFromCart } = useCart()
 
   useEffect(() => {
     fetch(`https://fakestoreapi.com/products/${id}`)
@@ -16,7 +16,7 @@ function ProductPage() {
   }, [id]);
 
   if (!product) return <p>Caricamento...</p>;
-
+  const isInCart = cart.some(item => item.id === product.id)
   return (
     <div className="row product-page">
       <div className="col-md-6 text-center">
@@ -29,11 +29,24 @@ function ProductPage() {
         <p>rate: {product.rating.rate}</p>
         <p>count: {product.rating.count}</p>
         <div className="price">{product.price} €</div>
+        
         {user && (
-          <button className="btn btn-primary mt-3" onClick={() => addToCart(product)}>
-            Aggiungi al Carrello
-          </button>
-        )}
+                        isInCart ? (
+                          <button
+                            className="btn btn-danger"
+                            onClick={() => removeFromCart(product.id)}
+                          >
+                            Rimuovi
+                          </button>
+                        ) : (
+                          <button
+                            className="btn btn-success"
+                            onClick={() => addToCart(product)}
+                          >
+                            Aggiungi al carrello
+                          </button>
+                        )
+                      )}
         {!user && <p className="text-danger mt-3">Devi effettuare il login per aggiungere al carrello.</p>}
       </div>
     </div>
