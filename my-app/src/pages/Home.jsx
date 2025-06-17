@@ -14,10 +14,6 @@ function Home() {
         setProducts(data)
         setLoading(false)
       })
-      .catch(error => {
-        console.error('Errore nel caricamento dei prodotti:', error)
-        setLoading(false)
-      })
   }, [])
 
   return (
