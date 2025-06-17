@@ -18,6 +18,9 @@ function Navbar() {
               <Link className="nav-link" to="/registrazione">Registrati</Link>
             </li>
             <li className="nav-item">
+              <Link className="nav-link" to="/login">Login</Link>
+            </li>
+            <li className="nav-item">
               <Link className="nav-link" to="/cart">
                 Carrello ({cart.length})
               </Link>

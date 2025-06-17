@@ -2,6 +2,8 @@ import Home from '../pages/Home'
 import ProductPage from '../pages/ProductPage'
 import CartPage from '../pages/CartPage'
 import Registrazione from '../pages/Registrazione';
+import Login from '../pages/Login';
+
 
 
 const routes = [
@@ -20,6 +22,10 @@ const routes = [
   {
     path: '/registrazione',
     element: <Registrazione />
+  },
+  {
+  path: '/login',
+  element: <Login />
   }
 ]
 
