@@ -1,10 +1,10 @@
-import Home from '../pages/Home'
-import ProductPage from '../pages/ProductPage'
-import CartPage from '../pages/CartPage'
+import Home from '../pages/Home';
+import ProductPage from '../pages/ProductPage';
+import CartPage from '../pages/CartPage';
 import Registrazione from '../pages/Registrazione';
 import Login from '../pages/Login';
-
-
+import PrivateRoute from '../components/PrivateRoute';
+import Logout from '../pages/Logout';
 
 const routes = [
   {
@@ -17,16 +17,24 @@ const routes = [
   },
   {
     path: '/cart',
-    element: <CartPage />
+    element: (
+      <PrivateRoute>
+        <CartPage />
+      </PrivateRoute>
+    )
   },
   {
     path: '/registrazione',
     element: <Registrazione />
   },
   {
-  path: '/login',
-  element: <Login />
+    path: '/login',
+    element: <Login />
+  },
+  {
+    path: '/logout',
+    element: <Logout />
   }
 ]
 
-export default routes
+export default routes;

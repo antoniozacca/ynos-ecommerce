@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
+  const { login } = useContext(AuthContext);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -15,7 +18,6 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Prendo dal localStorage i dati dell'utente con la key basata sulla email
     const utenteSalvato = localStorage.getItem(`utente_${formData.email}`);
 
     if (!utenteSalvato) {
@@ -30,12 +32,13 @@ const Login = () => {
       return;
     }
 
-    // Se tutto ok, salvo nel localStorage come logged account
-    localStorage.setItem("logged_account", utenteSalvato);
+    // Aggiorno il contesto global auth
+    login(utente);
 
     setErrore("");
     alert("Login effettuato con successo!");
-    // Qui puoi anche reindirizzare o fare altro
+    // Se vuoi, puoi resettare il form o fare redirect qui
+    setFormData({ email: "", password: "" });
   };
 
   return (
