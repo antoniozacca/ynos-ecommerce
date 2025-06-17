@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
+import { AuthContext } from '../context/AuthContext'  // Importa AuthContext
 
 function Home() {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
-  const { cart, addToCart, removeFromCart } = useCart() 
+  const { cart, addToCart, removeFromCart } = useCart()
+  const { user } = useContext(AuthContext) // Prendi user dal contesto
 
   useEffect(() => {
     fetch('https://fakestoreapi.com/products')
@@ -46,20 +48,22 @@ function Home() {
                         Vedi Dettagli
                       </Link>
 
-                      {isInCart ? (
-                        <button
-                          className="btn btn-danger"
-                          onClick={() => removeFromCart(product.id)}
-                        >
-                          Rimuovi
-                        </button>
-                      ) : (
-                        <button
-                          className="btn btn-success"
-                          onClick={() => addToCart(product)}
-                        >
-                          Aggiungi al carrello
-                        </button>
+                      {user && (
+                        isInCart ? (
+                          <button
+                            className="btn btn-danger"
+                            onClick={() => removeFromCart(product.id)}
+                          >
+                            Rimuovi
+                          </button>
+                        ) : (
+                          <button
+                            className="btn btn-success"
+                            onClick={() => addToCart(product)}
+                          >
+                            Aggiungi al carrello
+                          </button>
+                        )
                       )}
                     </div>
                   </div>
