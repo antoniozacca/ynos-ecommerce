@@ -34,37 +34,72 @@ const Register = () => {
   };
 
   return (
-    <div className="container mt-4">
-      <h2>Registrati</h2>
+  <div className="container mt-5 d-flex justify-content-center">
+    <div className="card shadow-sm p-4" style={{ maxWidth: '450px', width: '100%' }}>
+      <h2 className="text-center mb-4">Registrazione</h2>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        <Form className="form">
+        <Form>
           <div className="mb-3">
-            <label>Email</label>
-            <Field name="email" type="email" className="form-control" />
-            <ErrorMessage name="email" component="div" className="text-danger" />
+            <label htmlFor="email" className="form-label fw-semibold">Email</label>
+            <Field
+              id="email"
+              name="email"
+              type="email"
+              className="form-control"
+              placeholder="Inserisci la tua email"
+            />
+            <ErrorMessage
+              name="email"
+              component="div"
+              className="form-text text-danger"
+            />
           </div>
 
           <div className="mb-3">
-            <label>Password</label>
-            <Field name="password" type="password" className="form-control" />
-            <ErrorMessage name="password" component="div" className="text-danger" />
+            <label htmlFor="password" className="form-label fw-semibold">Password</label>
+            <Field
+              id="password"
+              name="password"
+              type="password"
+              className="form-control"
+              placeholder="Almeno 8 caratteri, una maiuscola, un numero e un simbolo"
+            />
+            <ErrorMessage
+              name="password"
+              component="div"
+              className="form-text text-danger"
+            />
           </div>
 
-          <div className="mb-3">
-            <label>Conferma Password</label>
-            <Field name="confirmPassword" type="password" className="form-control" />
-            <ErrorMessage name="confirmPassword" component="div" className="text-danger" />
+          <div className="mb-4">
+            <label htmlFor="confirmPassword" className="form-label fw-semibold">Conferma Password</label>
+            <Field
+              id="confirmPassword"
+              name="confirmPassword"
+              type="password"
+              className="form-control"
+              placeholder="Ripeti la password"
+            />
+            <ErrorMessage
+              name="confirmPassword"
+              component="div"
+              className="form-text text-danger"
+            />
           </div>
 
-          <button type="submit" className="btn btn-primary">Registrati</button>
+          <button type="submit" className="btn btn-success w-100 fw-semibold">
+            Registrati
+          </button>
         </Form>
       </Formik>
     </div>
-  );
+  </div>
+);
+
 };
 
 export default Register;

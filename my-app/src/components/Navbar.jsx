@@ -1,11 +1,16 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const { user, logout } = useContext(AuthContext);
-  const { cart } = useCart();
+  const { cart, setCart } = useCart(); // aggiungo setCart per pulire
+
+  const handleLogout = () => {
+    logout();
+    setCart([]); // pulisce il carrello al logout
+  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -31,7 +36,7 @@ function Navbar() {
             {user && (
               <>
                 <li className="nav-item">
-                  <button className="btn btn-link nav-link" onClick={logout}>
+                  <button className="btn btn-link nav-link" onClick={handleLogout}>
                     Logout
                   </button>
                 </li>
