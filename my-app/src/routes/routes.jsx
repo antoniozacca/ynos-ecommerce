@@ -6,6 +6,7 @@ import Login from '../pages/Login';
 import PrivateRoute from '../components/PrivateRoute';
 import Logout from '../pages/Logout';
 import AddProduct from '../pages/AddProduct';
+import UserProductsPage from "../pages/UserProductsPage";
 
 const routes = [
   {
@@ -37,13 +38,17 @@ const routes = [
     element: <Logout />
   },
   {
-  path: '/add-product',
-  element: (
-    <PrivateRoute>
-      <AddProduct />
-    </PrivateRoute>
+    path: '/add-product',
+    element: (
+      <PrivateRoute>
+        <AddProduct />
+      </PrivateRoute>
   )
-  }
+  },
+  { 
+    path: "/my-products",
+    element: <UserProductsPage /> 
+  },
 ]
 
 export default routes;

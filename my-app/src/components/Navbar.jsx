@@ -50,6 +50,11 @@ function Navbar() {
                     Aggiungi Prodotto
                   </Link>
                 </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/my-products">
+                    I miei prodotti
+                  </Link>
+                </li>
               </>
             )}
           </ul>
