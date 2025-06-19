@@ -37,7 +37,6 @@ const Login = () => {
 
     setErrore("");
     alert("Login effettuato con successo!");
-    // Se vuoi, puoi resettare il form o fare redirect qui
     setFormData({ email: "", password: "" });
   };
 

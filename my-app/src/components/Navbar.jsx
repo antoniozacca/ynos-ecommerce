@@ -40,6 +40,11 @@ function Navbar() {
                     Carrello ({cart.length})
                   </Link>
                 </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/add-product">
+                    Aggiungi Prodotto
+                  </Link>
+                </li>
               </>
             )}
           </ul>

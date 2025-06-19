@@ -5,6 +5,7 @@ import Registrazione from '../pages/Registrazione';
 import Login from '../pages/Login';
 import PrivateRoute from '../components/PrivateRoute';
 import Logout from '../pages/Logout';
+import AddProduct from '../pages/AddProduct';
 
 const routes = [
   {
@@ -34,6 +35,14 @@ const routes = [
   {
     path: '/logout',
     element: <Logout />
+  },
+  {
+  path: '/add-product',
+  element: (
+    <PrivateRoute>
+      <AddProduct />
+    </PrivateRoute>
+  )
   }
 ]
 

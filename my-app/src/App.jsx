@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import routes from "./routes/routes";
-import { AuthProvider } from "./context/AuthContext"; // importa il provider
+import { AuthProvider } from "./context/AuthContext"; 
 
 function App() {
   return (
