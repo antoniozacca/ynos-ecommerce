@@ -29,8 +29,8 @@ export function ProductsProvider({ children }) {
   }, [customProducts]);
 
   const addProduct = (newProduct) => {
-    newProduct.id = Date.now(); // ID finto
-    newProduct.isCustom = true; // Etichetta come "custom"
+    newProduct.id = Date.now(); 
+    newProduct.isCustom = true; 
     setCustomProducts((prev) => [...prev, newProduct]);
   };
 

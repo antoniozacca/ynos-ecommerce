@@ -29,7 +29,7 @@ const AddProduct = () => {
     return;
   }
 
-  // Qui dichiari customProducts leggendo da localStorage
+  //customProducts leggendo da localStorage
   const customProducts = JSON.parse(localStorage.getItem('custom_products')) || [];
 
   const newProduct = {

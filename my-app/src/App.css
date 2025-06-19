@@ -3,6 +3,8 @@ body {
   background: linear-gradient(135deg, #f0f2f5, #dfe6e9);
   min-height: 100vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding-top: 56px;
+
 }
 
 /* Card prodotto (Home.jsx) */
@@ -105,6 +107,13 @@ body {
   object-position: center;
 }
 
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1050; /* valore alto per stare sopra gli altri elementi */
+}
 
 
 

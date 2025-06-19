@@ -99,8 +99,6 @@ function Home() {
                               Aggiungi al carrello
                             </button>
                           )}
-
-                          {/* Tasto elimina visibile per tutti i prodotti */}
                           <button
                             className="btn btn-warning"
                             onClick={() => handleDeleteProduct(product.id)}
