@@ -99,12 +99,6 @@ function Home() {
                               Aggiungi al carrello
                             </button>
                           )}
-                          <button
-                            className="btn btn-warning"
-                            onClick={() => handleDeleteProduct(product.id)}
-                          >
-                            Elimina Prodotto
-                          </button>
                         </>
                       )}
                     </div>

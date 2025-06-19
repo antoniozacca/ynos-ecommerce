@@ -1,81 +1,71 @@
-import React, { useState, useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext'; // import del contesto
 
 const Login = () => {
-  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { login } = useContext(AuthContext); // prendo la funzione login dal context
 
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-
-  const [errore, setErrore] = useState("");
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const initialValues = {
+    email: '',
+    password: ''
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const validationSchema = Yup.object({
+    email: Yup.string()
+      .email('Email non valida')
+      .required('Campo obbligatorio'),
+    password: Yup.string()
+      .required('Campo obbligatorio')
+      .min(8, 'Minimo 8 caratteri')
+      .matches(/[A-Z]/, 'Deve contenere una lettera maiuscola')
+      .matches(/\d/, 'Deve contenere un numero')
+      .matches(/[@$!%*?&]/, 'Deve contenere un carattere speciale')
+  });
 
-    const utenteSalvato = localStorage.getItem(`utente_${formData.email}`);
+  const handleSubmit = (values) => {
+    // Recupero gli utenti salvati (può essere anche un array)
+    const savedUser = JSON.parse(localStorage.getItem('user'));
 
-    if (!utenteSalvato) {
-      setErrore("Email non registrata.");
-      return;
+    if (
+      savedUser &&
+      savedUser.email === values.email &&
+      savedUser.password === values.password
+    ) {
+      login(savedUser); // aggiorno il context
+      alert('Login effettuato!');
+      navigate('/'); // vado nella home
+    } else {
+      alert('Credenziali non valide');
     }
-
-    const utente = JSON.parse(utenteSalvato);
-
-    if (utente.password !== formData.password) {
-      setErrore("Password errata.");
-      return;
-    }
-
-    // Aggiorno il contesto global auth
-    login(utente);
-
-    setErrore("");
-    alert("Login effettuato con successo!");
-    setFormData({ email: "", password: "" });
   };
 
   return (
-    <div className="container mt-5" style={{ maxWidth: "400px" }}>
-      <h2 className="mb-4 text-center">Login</h2>
-      <form onSubmit={handleSubmit} className="border p-4 rounded shadow-sm bg-light">
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">Email</label>
-          <input
-            type="email"
-            className="form-control"
-            id="email"
-            name="email"
-            placeholder="Inserisci la tua email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
+    <div className="container mt-4">
+      <h2>Login</h2>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        <Form className="form">
+          <div className="mb-3">
+            <label>Email</label>
+            <Field name="email" type="email" className="form-control" />
+            <ErrorMessage name="email" component="div" className="text-danger" />
+          </div>
 
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">Password</label>
-          <input
-            type="password"
-            className="form-control"
-            id="password"
-            name="password"
-            placeholder="Inserisci la tua password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
+          <div className="mb-3">
+            <label>Password</label>
+            <Field name="password" type="password" className="form-control" />
+            <ErrorMessage name="password" component="div" className="text-danger" />
+          </div>
 
-        {errore && <div className="alert alert-danger">{errore}</div>}
-
-        <button type="submit" className="btn btn-primary w-100">Accedi</button>
-      </form>
+          <button type="submit" className="btn btn-primary">Login</button>
+        </Form>
+      </Formik>
     </div>
   );
 };

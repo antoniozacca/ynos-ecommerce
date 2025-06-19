@@ -1,131 +1,70 @@
-import React, { useState } from "react";
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { useNavigate } from 'react-router-dom';
 
-const Registrazione = () => {
-  const [formData, setFormData] = useState({
-    nome: "",
-    cognome: "",
-    email: "",
-    password: "",
-    confermaPassword: "",
-  });
+const Register = () => {
+  const navigate = useNavigate();
 
-  const [errore, setErrore] = useState("");
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const initialValues = {
+    email: '',
+    password: '',
+    confirmPassword: ''
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const validationSchema = Yup.object({
+    email: Yup.string()
+      .email('Email non valida')
+      .required('Campo obbligatorio'),
+    password: Yup.string()
+      .required('Campo obbligatorio')
+      .min(8, 'Minimo 8 caratteri')
+      .matches(/[A-Z]/, 'Deve contenere una lettera maiuscola')
+      .matches(/\d/, 'Deve contenere un numero')
+      .matches(/[@$!%*?&]/, 'Deve contenere un carattere speciale'),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref('password')], 'Le password non coincidono')
+      .required('Conferma la password'),
+  });
 
-    if (formData.password !== formData.confermaPassword) {
-      setErrore("Le password non corrispondono.");
-      return;
-    }
-
-    const nuovoUtente = {
-      nome: formData.nome,
-      cognome: formData.cognome,
-      email: formData.email,
-      password: formData.password,
-    };
-
-    localStorage.setItem(`utente_${nuovoUtente.email}`, JSON.stringify(nuovoUtente));
-
-    setErrore("");
-    alert("Registrazione completata!");
-
-    setFormData({
-      nome: "",
-      cognome: "",
-      email: "",
-      password: "",
-      confermaPassword: "",
-    });
+  const handleSubmit = (values) => {
+    // Salvataggio su localStorage (solo per test)
+    localStorage.setItem('user', JSON.stringify(values));
+    alert('Registrazione completata');
+    navigate('/login');
   };
 
   return (
-    <div className="container mt-5" style={{ maxWidth: "500px" }}>
-      <h2 className="mb-4 text-center">Registrazione</h2>
-      <form onSubmit={handleSubmit} className="border p-4 rounded shadow-sm bg-light">
-        <div className="mb-3">
-          <label htmlFor="nome" className="form-label">Nome</label>
-          <input
-            type="text"
-            className="form-control"
-            id="nome"
-            name="nome"
-            placeholder="Inserisci il nome"
-            value={formData.nome}
-            onChange={handleChange}
-            required
-          />
-        </div>
+    <div className="container mt-4">
+      <h2>Registrati</h2>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        <Form className="form">
+          <div className="mb-3">
+            <label>Email</label>
+            <Field name="email" type="email" className="form-control" />
+            <ErrorMessage name="email" component="div" className="text-danger" />
+          </div>
 
-        <div className="mb-3">
-          <label htmlFor="cognome" className="form-label">Cognome</label>
-          <input
-            type="text"
-            className="form-control"
-            id="cognome"
-            name="cognome"
-            placeholder="Inserisci il cognome"
-            value={formData.cognome}
-            onChange={handleChange}
-            required
-          />
-        </div>
+          <div className="mb-3">
+            <label>Password</label>
+            <Field name="password" type="password" className="form-control" />
+            <ErrorMessage name="password" component="div" className="text-danger" />
+          </div>
 
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">Email</label>
-          <input
-            type="email"
-            className="form-control"
-            id="email"
-            name="email"
-            placeholder="nome@esempio.com"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
+          <div className="mb-3">
+            <label>Conferma Password</label>
+            <Field name="confirmPassword" type="password" className="form-control" />
+            <ErrorMessage name="confirmPassword" component="div" className="text-danger" />
+          </div>
 
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">Password</label>
-          <input
-            type="password"
-            className="form-control"
-            id="password"
-            name="password"
-            placeholder="Inserisci una password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="confermaPassword" className="form-label">Conferma Password</label>
-          <input
-            type="password"
-            className="form-control"
-            id="confermaPassword"
-            name="confermaPassword"
-            placeholder="Conferma la password"
-            value={formData.confermaPassword}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        {errore && <div className="alert alert-danger">{errore}</div>}
-
-        <button type="submit" className="btn btn-primary w-100">
-          Registrati
-        </button>
-      </form>
+          <button type="submit" className="btn btn-primary">Registrati</button>
+        </Form>
+      </Formik>
     </div>
   );
 };
 
-export default Registrazione;
+export default Register;
