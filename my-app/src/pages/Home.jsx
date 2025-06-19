@@ -9,24 +9,21 @@ function Home() {
   const { cart, addToCart, removeFromCart } = useCart()
   const { user } = useContext(AuthContext)
 
-  // Carica prodotti da API + LocalStorage, escludendo quelli eliminati
   const loadProducts = () => {
-    fetch('https://fakestoreapi.com/products')
-      .then(res => res.json())
-      .then(apiData => {
-        const localProducts = JSON.parse(localStorage.getItem('custom_products')) || []
-        const deletedProducts = JSON.parse(localStorage.getItem('deleted_products')) || []
+  fetch('https://fakestoreapi.com/products')
+    .then(res => res.json())
+    .then(apiData => {
+      const deletedProducts = JSON.parse(localStorage.getItem('deleted_products')) || []
 
-        // Filtra prodotti API eliminati
-        const filteredApiData = apiData.filter(p => !deletedProducts.includes(p.id.toString()))
-        // Filtra prodotti custom eliminati
-        const filteredLocalProducts = localProducts.filter(p => !deletedProducts.includes(p.id.toString()))
+      // Mostra solo i prodotti API (escludendo quelli eliminati)
+      const filteredApiData = apiData.filter(p => !deletedProducts.includes(p.id.toString()))
 
-        setProducts([...filteredApiData, ...filteredLocalProducts])
-        setLoading(false)
-      })
-      .catch(() => setLoading(false))
-  }
+      setProducts(filteredApiData)
+      setLoading(false)
+    })
+    .catch(() => setLoading(false))
+}
+
 
   useEffect(() => {
     loadProducts()
