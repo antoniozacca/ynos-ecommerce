@@ -10,41 +10,43 @@ function Home() {
   const { user } = useContext(AuthContext)
 
   const loadProducts = () => {
-  fetch('https://fakestoreapi.com/products')
-    .then(res => res.json())
-    .then(apiData => {
-      const deletedProducts = JSON.parse(localStorage.getItem('deleted_products')) || []
+    fetch('https://fakestoreapi.com/products')
+      .then(res => res.json())
+      .then(apiData => {
+        const deletedProducts = JSON.parse(localStorage.getItem('deleted_products')) || []
+        const customProducts = JSON.parse(localStorage.getItem('custom_products')) || []
 
-      // Mostra solo i prodotti API (escludendo quelli eliminati)
-      const filteredApiData = apiData.filter(p => !deletedProducts.includes(p.id.toString()))
+        // Filtra API ed eventuali custom eliminati
+        const filteredApiData = apiData.filter(p => !deletedProducts.includes(p.id.toString()))
+        const filteredCustomData = customProducts.filter(p => !deletedProducts.includes(p.id.toString()))
 
-      setProducts(filteredApiData)
-      setLoading(false)
-    })
-    .catch(() => setLoading(false))
-}
+        // Aggiungi flag "isCustom" ai custom
+        const flaggedCustoms = filteredCustomData.map(p => ({ ...p, isCustom: true }))
 
+        // Unisci
+        const allProducts = [...filteredApiData, ...flaggedCustoms]
+
+        setProducts(allProducts)
+        setLoading(false)
+      })
+      .catch(() => setLoading(false))
+  }
 
   useEffect(() => {
     loadProducts()
   }, [])
 
-  // Elimina prodotto (sia API che custom)
   const handleDeleteProduct = (id) => {
-    // Salva ID prodotto come eliminato
     const deletedProducts = JSON.parse(localStorage.getItem('deleted_products')) || []
-
     if (!deletedProducts.includes(id.toString())) {
       deletedProducts.push(id.toString())
       localStorage.setItem('deleted_products', JSON.stringify(deletedProducts))
     }
 
-    // Se prodotto è custom, rimuovilo anche da custom_products
     const customProducts = JSON.parse(localStorage.getItem('custom_products')) || []
     const updatedCustomProducts = customProducts.filter(p => p.id.toString() !== id.toString())
     localStorage.setItem('custom_products', JSON.stringify(updatedCustomProducts))
 
-    // Aggiorna lo stato rimuovendo il prodotto
     setProducts(prevProducts => prevProducts.filter(p => p.id.toString() !== id.toString()))
   }
 
@@ -60,7 +62,7 @@ function Home() {
         <div className="row">
           {products.map(product => {
             const isInCart = cart.some(item => item.id === product.id)
-            const isCustom = product.hasOwnProperty('isCustom') ? product.isCustom === true : false
+            const isCustom = product.isCustom === true
 
             return (
               <div key={product.id} className="col-md-4 mb-4">
