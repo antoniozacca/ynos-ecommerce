@@ -16,11 +16,11 @@ function Home() {
         const deletedProducts = JSON.parse(localStorage.getItem('deleted_products')) || []
         const customProducts = JSON.parse(localStorage.getItem('custom_products')) || []
 
-        // Filtra API ed eventuali custom eliminati
+        
         const filteredApiData = apiData.filter(p => !deletedProducts.includes(p.id.toString()))
         const filteredCustomData = customProducts.filter(p => !deletedProducts.includes(p.id.toString()))
 
-        // Aggiungi flag "isCustom" ai custom
+        
         const flaggedCustoms = filteredCustomData.map(p => ({ ...p, isCustom: true }))
 
         // Unisci
