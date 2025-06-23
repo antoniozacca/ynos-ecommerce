@@ -47,7 +47,11 @@ const routes = [
   },
   { 
     path: "/my-products",
-    element: <UserProductsPage /> 
+    element: (
+    <PrivateRoute>
+      <UserProductsPage />
+      </PrivateRoute> 
+      )
   },
 ]
 
