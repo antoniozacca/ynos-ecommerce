@@ -50,7 +50,7 @@ const routes = [
     element: (
     <PrivateRoute>
       <UserProductsPage />
-      </PrivateRoute> 
+    </PrivateRoute> 
       )
   },
 ]
