@@ -9,7 +9,7 @@ const Login = () => {
   const location = useLocation();
   const { login } = useContext(AuthContext);
 
-  const from = location.state?.from?.pathname || '/'; // ← pagina precedente o home
+  const from = location.state?.from?.pathname || '/'; //pagina precedente o home
 
   const initialValues = {
     email: '',
@@ -38,7 +38,7 @@ const Login = () => {
     ) {
       login(savedUser);
       alert('Login effettuato!');
-      navigate(from, { replace: true }); // ← redirect alla rotta originaria
+      navigate(from, { replace: true }); // redirect alla rotta originaria
     } else {
       alert('Credenziali non valide');
     }
