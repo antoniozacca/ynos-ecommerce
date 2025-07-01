@@ -7,6 +7,7 @@ import PrivateRoute from '../components/PrivateRoute';
 import Logout from '../pages/Logout';
 import AddProduct from '../pages/AddProduct';
 import UserProductsPage from "../pages/UserProductsPage";
+import WishList from '../pages/WishList';
 
 const routes = [
   {
@@ -50,6 +51,14 @@ const routes = [
     element: (
     <PrivateRoute>
       <UserProductsPage />
+    </PrivateRoute> 
+      )
+  },
+  { 
+    path: "/wishlist",
+    element: (
+    <PrivateRoute>
+      <WishList />
     </PrivateRoute> 
       )
   },

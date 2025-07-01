@@ -46,6 +46,11 @@ function Navbar() {
                   </Link>
                 </li>
                 <li className="nav-item">
+                  <Link className="nav-link" to="/wishlist">
+                    WishList ({cart.length})
+                  </Link>
+                </li>
+                <li className="nav-item">
                   <Link className="nav-link" to="/add-product">
                     Aggiungi Prodotto
                   </Link>
