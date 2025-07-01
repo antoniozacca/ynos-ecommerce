@@ -69,7 +69,7 @@ function Home() {
               className={`accordion-button d-flex justify-content-between align-items-center ${
                 !isAccordionOpen ? 'collapsed' : ''
               } accordion-button-custom`}
-              onClick={() => setIsAccordionOpen((prev) => !prev)}
+              onClick={() => setIsAccordionOpen(prev => !prev)}
               aria-expanded={isAccordionOpen}
               aria-controls="filterCollapse"
             >
@@ -99,7 +99,7 @@ function Home() {
                   className="form-control input-custom"
                   placeholder="Cerca per nome..."
                   value={searchName}
-                  onChange={(e) => setSearchName(e.target.value)}
+                  onChange={e => setSearchName(e.target.value)}
                 />
               </div>
 
@@ -113,7 +113,7 @@ function Home() {
                   className="form-control input-custom"
                   placeholder="Cerca per categoria..."
                   value={searchCategory}
-                  onChange={(e) => setSearchCategory(e.target.value)}
+                  onChange={e => setSearchCategory(e.target.value)}
                 />
               </div>
             </div>
@@ -127,16 +127,16 @@ function Home() {
         </div>
       ) : (
         <div className="row g-4">
-          {filteredProducts.map((product) => {
-            const isInCart = cart.some((item) => item.id === product.id)
+          {filteredProducts.map(product => {
+            const isInCart = cart.some(item => item.id === product.id)
             const isCustom = product.isCustom === true
 
             return (
               <div key={product.id} className="col-sm-6 col-md-4 col-lg-3">
                 <div
                   className="card h-100 card-custom"
-                  onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
-                  onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
+                  onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.05)')}
+                  onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
                 >
                   <img
                     src={product.image}

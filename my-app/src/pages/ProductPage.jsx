@@ -12,39 +12,38 @@ function ProductPage() {
   const { cart, addToCart, removeFromCart } = useCart();
 
   useEffect(() => {
-  const fetchProduct = async () => {
-    setLoading(true);
-    setError(null);
+    const fetchProduct = async () => {
+      setLoading(true);
+      setError(null);
 
-    // Provo a recuperare il prodotto da localStorage (custom_products)
-    const localProducts = JSON.parse(localStorage.getItem('custom_products')) || [];
-    const localProduct = localProducts.find(p => p.id.toString() === id.toString());
+      // Provo a recuperare il prodotto da localStorage (custom_products)
+      const localProducts = JSON.parse(localStorage.getItem('custom_products')) || [];
+      const localProduct = localProducts.find(p => p.id.toString() === id.toString());
 
-    if (localProduct) {
-      // Se lo trovo localmente, lo uso direttamente
-      setProduct(localProduct);
-      setLoading(false);
-      return;
-    }
+      if (localProduct) {
+        // Se lo trovo localmente, lo uso direttamente
+        setProduct(localProduct);
+        setLoading(false);
+        return;
+      }
 
-    // Altrimenti faccio fetch dall'API
-    try {
-      const res = await fetch(`https://fakestoreapi.com/products/${id}`);
-      if (!res.ok) throw new Error(`Errore ${res.status}: ${res.statusText}`);
-      const text = await res.text();
-      if (!text) throw new Error("Risposta vuota dal server");
-      const data = JSON.parse(text);
-      setProduct(data);
-    } catch (err) {
-      setError(err.message);
-      setProduct(null);
-    } finally {
-      setLoading(false);
-    }
-  };
-  fetchProduct();
-}, [id]);
-
+      // Altrimenti faccio fetch dall'API
+      try {
+        const res = await fetch(`https://fakestoreapi.com/products/${id}`);
+        if (!res.ok) throw new Error(`Errore ${res.status}: ${res.statusText}`);
+        const text = await res.text();
+        if (!text) throw new Error("Risposta vuota dal server");
+        const data = JSON.parse(text);
+        setProduct(data);
+      } catch (err) {
+        setError(err.message);
+        setProduct(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProduct();
+  }, [id]);
 
   if (loading) return <p>Caricamento...</p>;
   if (error) return <p className="text-danger">Errore: {error}</p>;

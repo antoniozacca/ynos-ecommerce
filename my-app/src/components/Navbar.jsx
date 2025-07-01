@@ -2,12 +2,10 @@ import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
 import { Link } from "react-router-dom";
-import { useWishlist } from "../context/WishlistContext";
 
 function Navbar() {
   const { user, logout } = useContext(AuthContext);
   const { cart, setCart } = useCart(); // aggiungo setCart per pulire
-  const { wishlist } = useWishlist();
 
   const handleLogout = () => {
     logout();
@@ -49,7 +47,7 @@ function Navbar() {
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/wishlist">
-                    WishList ({wishlist.length})
+                    WishList 
                   </Link>
                 </li>
                 <li className="nav-item">
