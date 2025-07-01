@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import { useWishlist } from "../context/WishlistContext"; // Importa wishlist context
 import { AuthContext } from "../context/AuthContext";
 
 function ProductPage() {
@@ -10,6 +11,7 @@ function ProductPage() {
   const [error, setError] = useState(null);           
   const { user } = useContext(AuthContext);
   const { cart, addToCart, removeFromCart } = useCart();
+  const { wishlist, addToWishlist, removeFromWishlist } = useWishlist(); // wishlist context
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -21,13 +23,11 @@ function ProductPage() {
       const localProduct = localProducts.find(p => p.id.toString() === id.toString());
 
       if (localProduct) {
-        // Se lo trovo localmente, lo uso direttamente
         setProduct(localProduct);
         setLoading(false);
         return;
       }
 
-      // Altrimenti faccio fetch dall'API
       try {
         const res = await fetch(`https://fakestoreapi.com/products/${id}`);
         if (!res.ok) throw new Error(`Errore ${res.status}: ${res.statusText}`);
@@ -50,6 +50,7 @@ function ProductPage() {
   if (!product) return <p>Prodotto non trovato</p>;
 
   const isInCart = cart.some(item => item.id === product.id);
+  const isInWishlist = wishlist.some(item => item.id === product.id);
 
   return (
     <div className="row product-page">
@@ -65,23 +66,38 @@ function ProductPage() {
         <div className="price">{product.price} €</div>
 
         {user ? (
-          isInCart ? (
+          <>
+            {isInCart ? (
+              <button
+                className="btn btn-danger me-2"
+                onClick={() => removeFromCart(product.id)}
+              >
+                Rimuovi dal carrello
+              </button>
+            ) : (
+              <button
+                className="btn btn-success me-2"
+                onClick={() => addToCart(product)}
+              >
+                Aggiungi al carrello
+              </button>
+            )}
+
             <button
-              className="btn btn-danger"
-              onClick={() => removeFromCart(product.id)}
+              className={`btn ${isInWishlist ? "btn-danger" : "btn-outline-danger"}`}
+              onClick={() => {
+                if (isInWishlist) {
+                  removeFromWishlist(product.id);
+                } else {
+                  addToWishlist(product);
+                }
+              }}
             >
-              Rimuovi
+              {isInWishlist ? "💖 Rimuovi dai preferiti" : "🤍 Aggiungi ai preferiti"}
             </button>
-          ) : (
-            <button
-              className="btn btn-success"
-              onClick={() => addToCart(product)}
-            >
-              Aggiungi al carrello
-            </button>
-          )
+          </>
         ) : (
-          <p className="text-danger mt-3">Devi effettuare il login per aggiungere al carrello.</p>
+          <p className="text-danger mt-3">Devi effettuare il login per aggiungere al carrello o ai preferiti.</p>
         )}
       </div>
     </div>

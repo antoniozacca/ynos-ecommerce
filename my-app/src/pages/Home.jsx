@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import { AuthContext } from '../context/AuthContext'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { useWishlist } from '../context/WishlistContext'
 
 function Home() {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const { cart, addToCart, removeFromCart } = useCart()
   const { user } = useContext(AuthContext)
-
+  const { wishlist, addToWishlist, removeFromWishlist } = useWishlist()
   const [searchName, setSearchName] = useState('')
   const [searchCategory, setSearchCategory] = useState('')
   const [isAccordionOpen, setIsAccordionOpen] = useState(false)
@@ -130,6 +131,7 @@ function Home() {
           {filteredProducts.map(product => {
             const isInCart = cart.some(item => item.id === product.id)
             const isCustom = product.isCustom === true
+            const isInWishlist = wishlist.some(item => item.id === product.id)
 
             return (
               <div key={product.id} className="col-sm-6 col-md-4 col-lg-3">
@@ -173,16 +175,20 @@ function Home() {
                               Aggiungi
                             </button>
                           )}
-                        </>
-                      )}
 
-                      {isCustom && (
-                        <button
-                          className="btn btn-outline-danger flex-grow-1"
-                          onClick={() => handleDeleteProduct(product.id)}
-                        >
-                          Elimina
-                        </button>
+                          <button
+                            className={isInWishlist ? "btn btn-danger flex-grow-1" : "btn btn-outline-danger flex-grow-1"}
+                            onClick={() => {
+                              if (isInWishlist) {
+                                removeFromWishlist(product.id)
+                              } else {
+                                addToWishlist(product)
+                              }
+                            }}
+                          >
+                            {isInWishlist ? '💖 Rimuovi dai preferiti' : '🤍 Aggiungi ai preferiti'}
+                          </button>
+                        </>
                       )}
                     </div>
                   </div>
