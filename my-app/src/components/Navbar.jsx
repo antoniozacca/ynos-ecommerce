@@ -1,11 +1,13 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
+import { useWishlist } from "../context/WishlistContext"; // import wishlist context
 import { Link } from "react-router-dom";
 
 function Navbar() {
   const { user, logout } = useContext(AuthContext);
   const { cart, setCart } = useCart(); // aggiungo setCart per pulire
+  const { wishlist } = useWishlist();  // prendo la wishlist
 
   const handleLogout = () => {
     logout();
@@ -47,7 +49,7 @@ function Navbar() {
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/wishlist">
-                    WishList 
+                    WishList ({wishlist.length})
                   </Link>
                 </li>
                 <li className="nav-item">
