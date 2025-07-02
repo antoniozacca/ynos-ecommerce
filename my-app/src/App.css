@@ -60,3 +60,33 @@
 .card-title-custom {
   min-height: 3.5rem;
 }
+
+:root {
+  --color-primary: #0d6efd;
+  --color-secondary: #6c757d;
+  --color-background: #ffffff;
+  --color-text: #212529;
+  --color-danger: #dc3545;
+  --color-warning: #ffc107;
+  --color-success: #198754;
+  --color-on-primary: #ffffff;
+  --color-on-secondary: #ffffff;
+}
+
+[data-theme='dark'] {
+  --color-primary: #0d6efd;
+  --color-secondary: #adb5bd;
+  --color-background: #121212;
+  --color-text: #f8f9fa;
+  --color-danger: #f44336;
+  --color-warning: #ffca28;
+  --color-success: #4caf50;
+  --color-on-primary: #ffffff;
+  --color-on-secondary: #212529;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
